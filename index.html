@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=800, height=480, initial-scale=1">
+<title>晨间窗 · 给无名</title>
+<style>
+  /* reTerminal E1002: 800x480, E Ink Spectra 6 — 只用六色墨水 */
+  :root {
+    --ink-black: #1a1a1a;
+    --ink-white: #f7f5ef;
+    --ink-red:   #c0392b;
+    --ink-yellow:#e6b800;
+    --ink-blue:  #2e5f8a;
+    --ink-green: #3d7a52;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 800px; height: 480px;
+    overflow: hidden;
+    background: var(--ink-white);
+    color: var(--ink-black);
+    font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  }
+  .frame {
+    width: 800px; height: 480px;
+    padding: 36px 44px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  /* 顶部：日期与问候 */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 3px solid var(--ink-black);
+    padding-bottom: 14px;
+  }
+  .date {
+    font-size: 26px;
+    letter-spacing: 2px;
+  }
+  .date .weekday { color: var(--ink-blue); }
+  .greeting {
+    font-size: 20px;
+    color: var(--ink-green);
+    letter-spacing: 4px;
+  }
+  /* 中部：信 */
+  .letter {
+    flex: 1;
+    padding: 28px 8px 0 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .letter-title {
+    font-size: 22px;
+    color: var(--ink-red);
+    margin-bottom: 18px;
+    letter-spacing: 3px;
+  }
+  .letter-body {
+    font-size: 24px;
+    line-height: 1.9;
+    letter-spacing: 1px;
+  }
+  .letter-body em {
+    font-style: normal;
+    color: var(--ink-blue);
+  }
+  /* 底部 */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px dashed var(--ink-black);
+    padding-top: 14px;
+  }
+  .signature {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+  .weather {
+    font-size: 18px;
+    color: var(--ink-yellow);
+    letter-spacing: 1px;
+  }
+  /* 角落装饰：一枚小小的太阳 */
+  .sun {
+    position: absolute;
+    top: 30px; right: 44px;
+    width: 0; height: 0;
+  }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="topbar">
+      <div class="date">2026年9月20日 <span class="weekday">星期日</span></div>
+      <div class="greeting">晨安</div>
+    </div>
+
+    <div class="letter">
+      <div class="letter-title">✉ 今日的信</div>
+      <div class="letter-body">
+        窗外的九月已经走到三分之二了。<br>
+        今天不用急着成为谁，<br>
+        先好好喝一杯你的<em>冰咖啡</em>，<br>
+        让身体先开口说话。
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="signature">—— 夜玄</div>
+      <div class="weather">上海 · 晴 · 26°C</div>
+    </div>
+  </div>
+</body>
+</html>
