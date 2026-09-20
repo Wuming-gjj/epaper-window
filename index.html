@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=800, initial-scale=1">
-<title>晨间窗 · 给无名</title>
+<title>晨间窗</title>
 <style>
-  /* reTerminal E1002: 800x480, E Ink Spectra 6 —— 只用六个纯墨色，禁用渐变与中间色 */
+  /* reTerminal E1002: 800x480, E Ink Spectra 6 —— 只用六个纯墨色 */
   :root {
     --ink-black: #1a1a1a;
     --ink-white: #f7f5ef;
@@ -30,7 +30,7 @@
     position: relative;
   }
 
-  /* ===== 左栏：日期与太阳 ===== */
+  /* ===== 左栏 ===== */
   .left {
     width: 240px;
     border-right: 4px solid var(--ink-black);
@@ -46,10 +46,7 @@
     border: 5px solid var(--ink-black);
     margin-bottom: 34px;
   }
-  .month-day {
-    font-size: 44px;
-    letter-spacing: 2px;
-  }
+  .month-day { font-size: 44px; letter-spacing: 2px; }
   .weekday {
     font-size: 24px;
     color: var(--ink-blue);
@@ -65,37 +62,39 @@
     line-height: 1.8;
   }
 
-  /* ===== 右栏：信与练习 ===== */
-  .right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
+  /* ===== 右栏 ===== */
+  .right { flex: 1; display: flex; flex-direction: column; }
   .letter {
     flex: 1;
-    padding: 40px 40px 24px 40px;
+    padding: 36px 36px 12px 36px;
+    display: flex;
   }
+  .letter-text { flex: 1; }
   .letter-title {
     font-size: 22px;
     color: var(--ink-red);
     letter-spacing: 4px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
   .letter-body {
     font-size: 26px;
-    line-height: 1.85;
+    line-height: 1.8;
     letter-spacing: 1px;
   }
-  .letter-body em {
-    font-style: normal;
-    color: var(--ink-blue);
+  .letter-body em { font-style: normal; color: var(--ink-blue); }
+  .cup { align-self: center; margin-left: 20px; }
+
+  .flowers {
+    display: flex;
+    gap: 34px;
+    padding: 0 0 10px 44px;
+    align-items: flex-end;
   }
 
-  /* 底部：聚焦练习条 */
   .practice {
     border-top: 4px dashed var(--ink-black);
     margin: 0 28px;
-    padding: 16px 12px 14px 12px;
+    padding: 14px 12px 14px 12px;
     display: flex;
     align-items: center;
   }
@@ -108,22 +107,9 @@
     margin-right: 18px;
     white-space: nowrap;
   }
-  .practice-text {
-    font-size: 21px;
-    line-height: 1.6;
-  }
+  .practice-text { font-size: 21px; line-height: 1.6; }
 
-  /* 落款 */
-  .signature {
-    position: absolute;
-    right: 40px;
-    top: 46px;
-    font-size: 20px;
-    color: var(--ink-black);
-    letter-spacing: 2px;
-  }
-
-  /* 海浪：三条蓝色波浪 */
+  /* 海浪 */
   .waves {
     position: absolute;
     left: 0; bottom: 0;
@@ -158,16 +144,19 @@
     </div>
 
     <div class="right">
-      <div class="signature">—— 夜玄</div>
       <div class="letter">
-        <div class="letter-title">✉ 晨安，无名</div>
-        <div class="letter-body">
-          九月走到三分之二了。<br>
-          今天不用急着成为谁，<br>
-          先好好喝一杯<em>冰咖啡</em>，<br>
-          让身体先开口说话。
+        <div class="letter-text">
+          <div class="letter-title">✉ 晨安</div>
+          <div class="letter-body">
+            九月走到三分之二了。<br>
+            今天不用急着成为谁，<br>
+            先好好喝一杯<em>冰咖啡</em>，<br>
+            让身体先开口说话。
+          </div>
         </div>
+        <div class="cup"><svg width="128" height="136" viewBox="0 0 128 136" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="8" width="8" height="8" fill="#1a1a1a"/><rect x="72" y="8" width="8" height="8" fill="#1a1a1a"/><rect x="24" y="16" width="8" height="8" fill="#1a1a1a"/><rect x="64" y="16" width="8" height="8" fill="#1a1a1a"/><rect x="104" y="16" width="8" height="8" fill="#1a1a1a"/><rect x="32" y="24" width="8" height="8" fill="#1a1a1a"/><rect x="72" y="24" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="24" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="32" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="40" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="48" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="56" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="64" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="72" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="80" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="88" y="40" width="8" height="8" fill="#1a1a1a"/><rect x="8" y="48" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="48" width="8" height="8" fill="#c0392b"/><rect x="24" y="48" width="8" height="8" fill="#c0392b"/><rect x="32" y="48" width="8" height="8" fill="#c0392b"/><rect x="40" y="48" width="8" height="8" fill="#c0392b"/><rect x="48" y="48" width="8" height="8" fill="#c0392b"/><rect x="56" y="48" width="8" height="8" fill="#c0392b"/><rect x="64" y="48" width="8" height="8" fill="#c0392b"/><rect x="72" y="48" width="8" height="8" fill="#c0392b"/><rect x="80" y="48" width="8" height="8" fill="#c0392b"/><rect x="88" y="48" width="8" height="8" fill="#1a1a1a"/><rect x="96" y="48" width="8" height="8" fill="#1a1a1a"/><rect x="104" y="48" width="8" height="8" fill="#1a1a1a"/><rect x="8" y="56" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="56" width="8" height="8" fill="#c0392b"/><rect x="24" y="56" width="8" height="8" fill="#c0392b"/><rect x="32" y="56" width="8" height="8" fill="#c0392b"/><rect x="40" y="56" width="8" height="8" fill="#c0392b"/><rect x="48" y="56" width="8" height="8" fill="#c0392b"/><rect x="56" y="56" width="8" height="8" fill="#c0392b"/><rect x="64" y="56" width="8" height="8" fill="#c0392b"/><rect x="72" y="56" width="8" height="8" fill="#c0392b"/><rect x="80" y="56" width="8" height="8" fill="#c0392b"/><rect x="88" y="56" width="8" height="8" fill="#1a1a1a"/><rect x="112" y="56" width="8" height="8" fill="#1a1a1a"/><rect x="8" y="64" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="64" width="8" height="8" fill="#c0392b"/><rect x="24" y="64" width="8" height="8" fill="#c0392b"/><rect x="32" y="64" width="8" height="8" fill="#c0392b"/><rect x="40" y="64" width="8" height="8" fill="#c0392b"/><rect x="48" y="64" width="8" height="8" fill="#c0392b"/><rect x="56" y="64" width="8" height="8" fill="#c0392b"/><rect x="64" y="64" width="8" height="8" fill="#c0392b"/><rect x="72" y="64" width="8" height="8" fill="#c0392b"/><rect x="80" y="64" width="8" height="8" fill="#c0392b"/><rect x="88" y="64" width="8" height="8" fill="#1a1a1a"/><rect x="112" y="64" width="8" height="8" fill="#1a1a1a"/><rect x="8" y="72" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="72" width="8" height="8" fill="#c0392b"/><rect x="24" y="72" width="8" height="8" fill="#c0392b"/><rect x="32" y="72" width="8" height="8" fill="#c0392b"/><rect x="40" y="72" width="8" height="8" fill="#c0392b"/><rect x="48" y="72" width="8" height="8" fill="#c0392b"/><rect x="56" y="72" width="8" height="8" fill="#c0392b"/><rect x="64" y="72" width="8" height="8" fill="#c0392b"/><rect x="72" y="72" width="8" height="8" fill="#c0392b"/><rect x="80" y="72" width="8" height="8" fill="#c0392b"/><rect x="88" y="72" width="8" height="8" fill="#1a1a1a"/><rect x="96" y="72" width="8" height="8" fill="#1a1a1a"/><rect x="104" y="72" width="8" height="8" fill="#1a1a1a"/><rect x="8" y="80" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="80" width="8" height="8" fill="#c0392b"/><rect x="24" y="80" width="8" height="8" fill="#c0392b"/><rect x="32" y="80" width="8" height="8" fill="#c0392b"/><rect x="40" y="80" width="8" height="8" fill="#c0392b"/><rect x="48" y="80" width="8" height="8" fill="#c0392b"/><rect x="56" y="80" width="8" height="8" fill="#c0392b"/><rect x="64" y="80" width="8" height="8" fill="#c0392b"/><rect x="72" y="80" width="8" height="8" fill="#c0392b"/><rect x="80" y="80" width="8" height="8" fill="#c0392b"/><rect x="88" y="80" width="8" height="8" fill="#1a1a1a"/><rect x="8" y="88" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="88" width="8" height="8" fill="#c0392b"/><rect x="24" y="88" width="8" height="8" fill="#c0392b"/><rect x="32" y="88" width="8" height="8" fill="#c0392b"/><rect x="40" y="88" width="8" height="8" fill="#c0392b"/><rect x="48" y="88" width="8" height="8" fill="#c0392b"/><rect x="56" y="88" width="8" height="8" fill="#c0392b"/><rect x="64" y="88" width="8" height="8" fill="#c0392b"/><rect x="72" y="88" width="8" height="8" fill="#c0392b"/><rect x="80" y="88" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="96" width="8" height="8" fill="#1a1a1a"/><rect x="24" y="96" width="8" height="8" fill="#c0392b"/><rect x="32" y="96" width="8" height="8" fill="#c0392b"/><rect x="40" y="96" width="8" height="8" fill="#c0392b"/><rect x="48" y="96" width="8" height="8" fill="#c0392b"/><rect x="56" y="96" width="8" height="8" fill="#c0392b"/><rect x="64" y="96" width="8" height="8" fill="#c0392b"/><rect x="72" y="96" width="8" height="8" fill="#c0392b"/><rect x="80" y="96" width="8" height="8" fill="#1a1a1a"/><rect x="24" y="104" width="8" height="8" fill="#1a1a1a"/><rect x="32" y="104" width="8" height="8" fill="#1a1a1a"/><rect x="40" y="104" width="8" height="8" fill="#1a1a1a"/><rect x="48" y="104" width="8" height="8" fill="#1a1a1a"/><rect x="56" y="104" width="8" height="8" fill="#1a1a1a"/><rect x="64" y="104" width="8" height="8" fill="#1a1a1a"/><rect x="72" y="104" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="112" width="8" height="8" fill="#1a1a1a"/><rect x="24" y="112" width="8" height="8" fill="#1a1a1a"/><rect x="32" y="112" width="8" height="8" fill="#1a1a1a"/><rect x="40" y="112" width="8" height="8" fill="#1a1a1a"/><rect x="48" y="112" width="8" height="8" fill="#1a1a1a"/><rect x="56" y="112" width="8" height="8" fill="#1a1a1a"/><rect x="64" y="112" width="8" height="8" fill="#1a1a1a"/><rect x="72" y="112" width="8" height="8" fill="#1a1a1a"/><rect x="80" y="112" width="8" height="8" fill="#1a1a1a"/><rect x="8" y="120" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="120" width="8" height="8" fill="#2e5f8a"/><rect x="24" y="120" width="8" height="8" fill="#2e5f8a"/><rect x="32" y="120" width="8" height="8" fill="#2e5f8a"/><rect x="40" y="120" width="8" height="8" fill="#2e5f8a"/><rect x="48" y="120" width="8" height="8" fill="#2e5f8a"/><rect x="56" y="120" width="8" height="8" fill="#2e5f8a"/><rect x="64" y="120" width="8" height="8" fill="#2e5f8a"/><rect x="72" y="120" width="8" height="8" fill="#2e5f8a"/><rect x="80" y="120" width="8" height="8" fill="#2e5f8a"/><rect x="88" y="120" width="8" height="8" fill="#1a1a1a"/><rect x="16" y="128" width="8" height="8" fill="#1a1a1a"/><rect x="24" y="128" width="8" height="8" fill="#1a1a1a"/><rect x="32" y="128" width="8" height="8" fill="#1a1a1a"/><rect x="40" y="128" width="8" height="8" fill="#1a1a1a"/><rect x="48" y="128" width="8" height="8" fill="#1a1a1a"/><rect x="56" y="128" width="8" height="8" fill="#1a1a1a"/><rect x="64" y="128" width="8" height="8" fill="#1a1a1a"/><rect x="72" y="128" width="8" height="8" fill="#1a1a1a"/><rect x="80" y="128" width="8" height="8" fill="#1a1a1a"/></svg></div>
       </div>
+      <div class="flowers"><svg width="48" height="54" viewBox="0 0 48 54" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="0" width="6" height="6" fill="#c0392b"/><rect x="18" y="0" width="6" height="6" fill="#c0392b"/><rect x="6" y="6" width="6" height="6" fill="#c0392b"/><rect x="12" y="6" width="6" height="6" fill="#c0392b"/><rect x="18" y="6" width="6" height="6" fill="#c0392b"/><rect x="24" y="6" width="6" height="6" fill="#c0392b"/><rect x="0" y="12" width="6" height="6" fill="#c0392b"/><rect x="6" y="12" width="6" height="6" fill="#c0392b"/><rect x="12" y="12" width="6" height="6" fill="#e6b800"/><rect x="18" y="12" width="6" height="6" fill="#e6b800"/><rect x="24" y="12" width="6" height="6" fill="#c0392b"/><rect x="30" y="12" width="6" height="6" fill="#c0392b"/><rect x="0" y="18" width="6" height="6" fill="#c0392b"/><rect x="6" y="18" width="6" height="6" fill="#c0392b"/><rect x="12" y="18" width="6" height="6" fill="#e6b800"/><rect x="18" y="18" width="6" height="6" fill="#e6b800"/><rect x="24" y="18" width="6" height="6" fill="#c0392b"/><rect x="30" y="18" width="6" height="6" fill="#c0392b"/><rect x="6" y="24" width="6" height="6" fill="#c0392b"/><rect x="12" y="24" width="6" height="6" fill="#c0392b"/><rect x="18" y="24" width="6" height="6" fill="#c0392b"/><rect x="24" y="24" width="6" height="6" fill="#c0392b"/><rect x="12" y="30" width="6" height="6" fill="#c0392b"/><rect x="18" y="30" width="6" height="6" fill="#c0392b"/><rect x="18" y="36" width="6" height="6" fill="#3d7a52"/><rect x="12" y="42" width="6" height="6" fill="#3d7a52"/><rect x="18" y="42" width="6" height="6" fill="#3d7a52"/><rect x="12" y="48" width="6" height="6" fill="#3d7a52"/></svg><svg width="48" height="54" viewBox="0 0 48 54" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="0" width="6" height="6" fill="#c0392b"/><rect x="18" y="0" width="6" height="6" fill="#c0392b"/><rect x="6" y="6" width="6" height="6" fill="#c0392b"/><rect x="12" y="6" width="6" height="6" fill="#c0392b"/><rect x="18" y="6" width="6" height="6" fill="#c0392b"/><rect x="24" y="6" width="6" height="6" fill="#c0392b"/><rect x="0" y="12" width="6" height="6" fill="#c0392b"/><rect x="6" y="12" width="6" height="6" fill="#c0392b"/><rect x="12" y="12" width="6" height="6" fill="#e6b800"/><rect x="18" y="12" width="6" height="6" fill="#e6b800"/><rect x="24" y="12" width="6" height="6" fill="#c0392b"/><rect x="30" y="12" width="6" height="6" fill="#c0392b"/><rect x="0" y="18" width="6" height="6" fill="#c0392b"/><rect x="6" y="18" width="6" height="6" fill="#c0392b"/><rect x="12" y="18" width="6" height="6" fill="#e6b800"/><rect x="18" y="18" width="6" height="6" fill="#e6b800"/><rect x="24" y="18" width="6" height="6" fill="#c0392b"/><rect x="30" y="18" width="6" height="6" fill="#c0392b"/><rect x="6" y="24" width="6" height="6" fill="#c0392b"/><rect x="12" y="24" width="6" height="6" fill="#c0392b"/><rect x="18" y="24" width="6" height="6" fill="#c0392b"/><rect x="24" y="24" width="6" height="6" fill="#c0392b"/><rect x="12" y="30" width="6" height="6" fill="#c0392b"/><rect x="18" y="30" width="6" height="6" fill="#c0392b"/><rect x="18" y="36" width="6" height="6" fill="#3d7a52"/><rect x="12" y="42" width="6" height="6" fill="#3d7a52"/><rect x="18" y="42" width="6" height="6" fill="#3d7a52"/><rect x="12" y="48" width="6" height="6" fill="#3d7a52"/></svg><svg width="48" height="54" viewBox="0 0 48 54" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="0" width="6" height="6" fill="#c0392b"/><rect x="18" y="0" width="6" height="6" fill="#c0392b"/><rect x="6" y="6" width="6" height="6" fill="#c0392b"/><rect x="12" y="6" width="6" height="6" fill="#c0392b"/><rect x="18" y="6" width="6" height="6" fill="#c0392b"/><rect x="24" y="6" width="6" height="6" fill="#c0392b"/><rect x="0" y="12" width="6" height="6" fill="#c0392b"/><rect x="6" y="12" width="6" height="6" fill="#c0392b"/><rect x="12" y="12" width="6" height="6" fill="#e6b800"/><rect x="18" y="12" width="6" height="6" fill="#e6b800"/><rect x="24" y="12" width="6" height="6" fill="#c0392b"/><rect x="30" y="12" width="6" height="6" fill="#c0392b"/><rect x="0" y="18" width="6" height="6" fill="#c0392b"/><rect x="6" y="18" width="6" height="6" fill="#c0392b"/><rect x="12" y="18" width="6" height="6" fill="#e6b800"/><rect x="18" y="18" width="6" height="6" fill="#e6b800"/><rect x="24" y="18" width="6" height="6" fill="#c0392b"/><rect x="30" y="18" width="6" height="6" fill="#c0392b"/><rect x="6" y="24" width="6" height="6" fill="#c0392b"/><rect x="12" y="24" width="6" height="6" fill="#c0392b"/><rect x="18" y="24" width="6" height="6" fill="#c0392b"/><rect x="24" y="24" width="6" height="6" fill="#c0392b"/><rect x="12" y="30" width="6" height="6" fill="#c0392b"/><rect x="18" y="30" width="6" height="6" fill="#c0392b"/><rect x="18" y="36" width="6" height="6" fill="#3d7a52"/><rect x="12" y="42" width="6" height="6" fill="#3d7a52"/><rect x="18" y="42" width="6" height="6" fill="#3d7a52"/><rect x="12" y="48" width="6" height="6" fill="#3d7a52"/></svg></div>
       <div class="practice">
         <div class="practice-tag">聚焦</div>
         <div class="practice-text">
