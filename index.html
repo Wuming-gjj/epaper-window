@@ -5,109 +5,116 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>晨间窗</title>
 <style>
-  /* reTerminal E1002 · E Ink Spectra 6（只用六个纯色，无渐变无中间色）
-     全部尺寸用 --u 换算 = 组件框宽度的 1%（并按框高钳制），随框等比缩放 */
+  /* reTerminal E1002 · E Ink Spectra 6
+     六色：黑#1a1a1a 白#f7f5ef 红#c0392b 黄#e6b800 蓝#2e5f8a 绿#3d7a52
+     全部尺寸 = --u（框宽的1%，按框高钳制），随组件框等比缩放 */
   :root {
     --u: min(1vw, 1.6667vh);
-    --ink-black: #1a1a1a;
-    --ink-white: #f7f5ef;
-    --ink-red:   #c0392b;
-    --ink-yellow:#e6b800;
-    --ink-blue:  #2e5f8a;
-    --ink-green: #3d7a52;
+    --ink-black:#1a1a1a; --ink-white:#f7f5ef; --ink-red:#c0392b;
+    --ink-yellow:#e6b800; --ink-blue:#2e5f8a; --ink-green:#3d7a52;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body {
-    width:100%; height:100%;
-    overflow:hidden;
-    background:var(--ink-white);
-    color:var(--ink-black);
-    font-family:"Noto Serif SC","Songti SC","SimSun",serif;
-    font-weight:700;
+    width:100%; height:100%; overflow:hidden;
+    background:var(--ink-white); color:var(--ink-black);
+    font-family:"Noto Serif SC","Songti SC","SimSun",serif; font-weight:700;
   }
-  .frame {
-    width:100%; height:100%;
-    border:calc(var(--u)*0.8) solid var(--ink-black);
-    display:flex;
-  }
+  .frame { width:100%; height:100%; display:flex;
+           border:calc(var(--u)*0.75) solid var(--ink-black); }
 
-  /* ===== 左栏 ===== */
+  /* ========== 左栏：天时 + 山天大畜 ========== */
   .left {
-    width:29.5%;
+    width:41%;
     border-right:calc(var(--u)*0.5) solid var(--ink-black);
     display:flex; flex-direction:column; align-items:center;
-    padding:calc(var(--u)*2.4) 0 calc(var(--u)*1.8) 0;
+    padding:calc(var(--u)*1.6) calc(var(--u)*2) calc(var(--u)*1.6) calc(var(--u)*1.2);
   }
-  .px-sun   { width:calc(var(--u)*13); height:calc(var(--u)*11); }
-  .px-flower{ width:calc(var(--u)*4.4); height:calc(var(--u)*5); margin:0 calc(var(--u)*1); }
-  .px-waves { width:calc(var(--u)*18.5); height:calc(var(--u)*2.1); }
-  .px-cup   { width:calc(var(--u)*11); height:calc(var(--u)*11); }
-  .px-gua   { width:calc(var(--u)*9); height:calc(var(--u)*9.8); }
+  .px-sun  { width:calc(var(--u)*8); height:calc(var(--u)*6.8); }
+  .px-gua  { width:calc(var(--u)*8); height:calc(var(--u)*9.6); }
 
-  .month-day { font-size:calc(var(--u)*5.6); margin-top:calc(var(--u)*2.2); letter-spacing:1px; }
-  .weekday   { font-size:calc(var(--u)*2.7); color:var(--ink-blue); letter-spacing:calc(var(--u)*0.7); margin-top:calc(var(--u)*0.6); }
-  .divider   { width:62%; border-top:calc(var(--u)*0.35) dashed var(--ink-black); margin:calc(var(--u)*1.9) 0; }
-  .weather   { font-size:calc(var(--u)*2.35); color:var(--ink-green); letter-spacing:calc(var(--u)*0.25); text-align:center; line-height:1.7; }
-  .flowers   { margin-top:auto; display:flex; align-items:flex-end; }
-  .waves     { margin-top:calc(var(--u)*1.1); }
+  .month-day { font-size:calc(var(--u)*4.6); line-height:1.15; margin-top:calc(var(--u)*1.2); }
+  .weekday   { font-size:calc(var(--u)*2.2); color:var(--ink-blue);
+               letter-spacing:calc(var(--u)*0.6); margin-top:calc(var(--u)*0.3); }
+  .divider   { width:80%; border-top:calc(var(--u)*0.32) dashed var(--ink-black);
+               margin:calc(var(--u)*1.3) 0; }
+  .weather   { font-size:calc(var(--u)*2.05); color:var(--ink-green);
+               letter-spacing:calc(var(--u)*0.2); text-align:center; }
 
-  /* ===== 右栏 ===== */
-  .right {
-    flex:1; display:flex; flex-direction:column;
-    padding:calc(var(--u)*2.6) calc(var(--u)*3.4);
-  }
-  .head { display:flex; align-items:flex-start; justify-content:space-between; }
-  .head-left { padding-top:calc(var(--u)*0.8); }
-  .head-title { font-size:calc(var(--u)*3.4); color:var(--ink-red); letter-spacing:calc(var(--u)*0.5); }
-  .head-sub   { font-size:calc(var(--u)*2.3); letter-spacing:calc(var(--u)*0.25); margin-top:calc(var(--u)*1.3); }
-  .gua { display:flex; flex-direction:column; align-items:center; }
-  .gua-name { font-size:calc(var(--u)*2.1); color:var(--ink-red); letter-spacing:calc(var(--u)*0.5); margin-top:calc(var(--u)*0.7); }
+  /* 卦 */
+  .gua { width:100%; display:flex; flex-direction:column; align-items:center;
+         margin-top:calc(var(--u)*1.4); }
+  .gua-title { font-size:calc(var(--u)*3.1); color:var(--ink-red);
+               letter-spacing:calc(var(--u)*0.6); }
+  .gua-shape { display:flex; align-items:center; gap:calc(var(--u)*1.2);
+               margin-top:calc(var(--u)*0.8); }
+  .gua-trigrams { font-size:calc(var(--u)*1.95); color:var(--ink-blue);
+                  letter-spacing:calc(var(--u)*0.15); line-height:1.35; }
+  .gua-text { font-size:calc(var(--u)*1.9); line-height:1.55; margin-top:calc(var(--u)*0.9);
+              text-align:justify; width:100%; }
+  .gua-text .lbl { color:var(--ink-red); }
 
-  .letter { flex:1; display:flex; align-items:center; gap:calc(var(--u)*1.6); }
-  .letter-body { flex:1; font-size:calc(var(--u)*3.25); line-height:1.75; letter-spacing:1px; }
-  .letter-body em { font-style:normal; color:var(--ink-blue); }
+  /* 画 */
+  .pic { flex:1; min-height:0; width:100%; display:flex; align-items:flex-end;
+         justify-content:center; margin-top:calc(var(--u)*1.2); }
+  .pic img { max-width:100%; max-height:100%; display:block; }
 
-  .practice { border-top:calc(var(--u)*0.35) dashed var(--ink-black); padding-top:calc(var(--u)*1.4); display:flex; align-items:center; }
-  .practice-tag {
-    background:var(--ink-green); color:var(--ink-white);
-    font-size:calc(var(--u)*2.05); letter-spacing:calc(var(--u)*0.35);
-    padding:calc(var(--u)*0.6) calc(var(--u)*1.3); margin-right:calc(var(--u)*1.6); white-space:nowrap;
-  }
-  .practice-text { font-size:calc(var(--u)*2.45); line-height:1.5; }
+  /* ========== 右栏：信 ========== */
+  .right { flex:1; display:flex; flex-direction:column;
+           padding:calc(var(--u)*2.4) calc(var(--u)*3.2); }
+  .head-title { font-size:calc(var(--u)*3.4); color:var(--ink-red);
+                letter-spacing:calc(var(--u)*0.5); }
+  .head-sub   { font-size:calc(var(--u)*2.05); letter-spacing:calc(var(--u)*0.2);
+                margin-top:calc(var(--u)*1); }
+  .quote { flex:1; display:flex; flex-direction:column; justify-content:center;
+           font-size:calc(var(--u)*2.7); line-height:1.8; letter-spacing:1px; }
+  .quote-src { font-size:calc(var(--u)*2.05); color:var(--ink-blue);
+               margin-top:calc(var(--u)*1.4); letter-spacing:calc(var(--u)*0.25); }
+
+  .practice { border-top:calc(var(--u)*0.32) dashed var(--ink-black);
+              padding-top:calc(var(--u)*1.3); display:flex; align-items:center; }
+  .practice-tag { background:var(--ink-green); color:var(--ink-white);
+                  font-size:calc(var(--u)*1.95); letter-spacing:calc(var(--u)*0.3);
+                  padding:calc(var(--u)*0.55) calc(var(--u)*1.2);
+                  margin-right:calc(var(--u)*1.4); white-space:nowrap; }
+  .practice-text { font-size:calc(var(--u)*2.3); line-height:1.5; }
 </style>
 </head>
 <body>
   <div class="frame">
+
     <div class="left">
-      <svg class="px-sun" viewBox="0 0 13 11" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><rect x="6" y="0" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="1" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="2" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="5" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="7" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="8" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="9" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="4" width="1" height="1" fill="#e6b800"/><rect x="5" y="4" width="1" height="1" fill="#e6b800"/><rect x="6" y="4" width="1" height="1" fill="#e6b800"/><rect x="7" y="4" width="1" height="1" fill="#e6b800"/><rect x="8" y="4" width="1" height="1" fill="#e6b800"/><rect x="9" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="1" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="5" width="1" height="1" fill="#e6b800"/><rect x="5" y="5" width="1" height="1" fill="#e6b800"/><rect x="6" y="5" width="1" height="1" fill="#e6b800"/><rect x="7" y="5" width="1" height="1" fill="#e6b800"/><rect x="8" y="5" width="1" height="1" fill="#e6b800"/><rect x="9" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="10" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="11" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="6" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="6" width="1" height="1" fill="#e6b800"/><rect x="5" y="6" width="1" height="1" fill="#e6b800"/><rect x="6" y="6" width="1" height="1" fill="#e6b800"/><rect x="7" y="6" width="1" height="1" fill="#e6b800"/><rect x="8" y="6" width="1" height="1" fill="#e6b800"/><rect x="9" y="6" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="5" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="7" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="8" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="9" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="8" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="9" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="10" width="1" height="1" fill="#1a1a1a"/></svg>
+      <svg class="px-sun" viewBox="0 0 13 11" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="0" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="1" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="2" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="5" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="7" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="8" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="9" y="3" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="4" width="1" height="1" fill="#e6b800"/><rect x="5" y="4" width="1" height="1" fill="#e6b800"/><rect x="6" y="4" width="1" height="1" fill="#e6b800"/><rect x="7" y="4" width="1" height="1" fill="#e6b800"/><rect x="8" y="4" width="1" height="1" fill="#e6b800"/><rect x="9" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="1" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="5" width="1" height="1" fill="#e6b800"/><rect x="5" y="5" width="1" height="1" fill="#e6b800"/><rect x="6" y="5" width="1" height="1" fill="#e6b800"/><rect x="7" y="5" width="1" height="1" fill="#e6b800"/><rect x="8" y="5" width="1" height="1" fill="#e6b800"/><rect x="9" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="10" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="11" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="6" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="6" width="1" height="1" fill="#e6b800"/><rect x="5" y="6" width="1" height="1" fill="#e6b800"/><rect x="6" y="6" width="1" height="1" fill="#e6b800"/><rect x="7" y="6" width="1" height="1" fill="#e6b800"/><rect x="8" y="6" width="1" height="1" fill="#e6b800"/><rect x="9" y="6" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="5" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="7" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="8" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="9" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="8" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="9" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="10" width="1" height="1" fill="#1a1a1a"/></svg>
       <div class="month-day">9月20日</div>
       <div class="weekday">星期日</div>
       <div class="divider"></div>
-      <div class="weather">上海 · 晴<br>26°C · 微风</div>
-      <div class="flowers"><svg class="px-flower" viewBox="0 0 8 9" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><rect x="2" y="0" width="1" height="1" fill="#c0392b"/><rect x="3" y="0" width="1" height="1" fill="#c0392b"/><rect x="1" y="1" width="1" height="1" fill="#c0392b"/><rect x="2" y="1" width="1" height="1" fill="#c0392b"/><rect x="3" y="1" width="1" height="1" fill="#c0392b"/><rect x="4" y="1" width="1" height="1" fill="#c0392b"/><rect x="0" y="2" width="1" height="1" fill="#c0392b"/><rect x="1" y="2" width="1" height="1" fill="#c0392b"/><rect x="2" y="2" width="1" height="1" fill="#e6b800"/><rect x="3" y="2" width="1" height="1" fill="#e6b800"/><rect x="4" y="2" width="1" height="1" fill="#c0392b"/><rect x="5" y="2" width="1" height="1" fill="#c0392b"/><rect x="0" y="3" width="1" height="1" fill="#c0392b"/><rect x="1" y="3" width="1" height="1" fill="#c0392b"/><rect x="2" y="3" width="1" height="1" fill="#e6b800"/><rect x="3" y="3" width="1" height="1" fill="#e6b800"/><rect x="4" y="3" width="1" height="1" fill="#c0392b"/><rect x="5" y="3" width="1" height="1" fill="#c0392b"/><rect x="1" y="4" width="1" height="1" fill="#c0392b"/><rect x="2" y="4" width="1" height="1" fill="#c0392b"/><rect x="3" y="4" width="1" height="1" fill="#c0392b"/><rect x="4" y="4" width="1" height="1" fill="#c0392b"/><rect x="2" y="5" width="1" height="1" fill="#c0392b"/><rect x="3" y="5" width="1" height="1" fill="#c0392b"/><rect x="3" y="6" width="1" height="1" fill="#3d7a52"/><rect x="2" y="7" width="1" height="1" fill="#3d7a52"/><rect x="3" y="7" width="1" height="1" fill="#3d7a52"/><rect x="2" y="8" width="1" height="1" fill="#3d7a52"/></svg><svg class="px-flower" viewBox="0 0 8 9" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><rect x="2" y="0" width="1" height="1" fill="#c0392b"/><rect x="3" y="0" width="1" height="1" fill="#c0392b"/><rect x="1" y="1" width="1" height="1" fill="#c0392b"/><rect x="2" y="1" width="1" height="1" fill="#c0392b"/><rect x="3" y="1" width="1" height="1" fill="#c0392b"/><rect x="4" y="1" width="1" height="1" fill="#c0392b"/><rect x="0" y="2" width="1" height="1" fill="#c0392b"/><rect x="1" y="2" width="1" height="1" fill="#c0392b"/><rect x="2" y="2" width="1" height="1" fill="#e6b800"/><rect x="3" y="2" width="1" height="1" fill="#e6b800"/><rect x="4" y="2" width="1" height="1" fill="#c0392b"/><rect x="5" y="2" width="1" height="1" fill="#c0392b"/><rect x="0" y="3" width="1" height="1" fill="#c0392b"/><rect x="1" y="3" width="1" height="1" fill="#c0392b"/><rect x="2" y="3" width="1" height="1" fill="#e6b800"/><rect x="3" y="3" width="1" height="1" fill="#e6b800"/><rect x="4" y="3" width="1" height="1" fill="#c0392b"/><rect x="5" y="3" width="1" height="1" fill="#c0392b"/><rect x="1" y="4" width="1" height="1" fill="#c0392b"/><rect x="2" y="4" width="1" height="1" fill="#c0392b"/><rect x="3" y="4" width="1" height="1" fill="#c0392b"/><rect x="4" y="4" width="1" height="1" fill="#c0392b"/><rect x="2" y="5" width="1" height="1" fill="#c0392b"/><rect x="3" y="5" width="1" height="1" fill="#c0392b"/><rect x="3" y="6" width="1" height="1" fill="#3d7a52"/><rect x="2" y="7" width="1" height="1" fill="#3d7a52"/><rect x="3" y="7" width="1" height="1" fill="#3d7a52"/><rect x="2" y="8" width="1" height="1" fill="#3d7a52"/></svg><svg class="px-flower" viewBox="0 0 8 9" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><rect x="2" y="0" width="1" height="1" fill="#c0392b"/><rect x="3" y="0" width="1" height="1" fill="#c0392b"/><rect x="1" y="1" width="1" height="1" fill="#c0392b"/><rect x="2" y="1" width="1" height="1" fill="#c0392b"/><rect x="3" y="1" width="1" height="1" fill="#c0392b"/><rect x="4" y="1" width="1" height="1" fill="#c0392b"/><rect x="0" y="2" width="1" height="1" fill="#c0392b"/><rect x="1" y="2" width="1" height="1" fill="#c0392b"/><rect x="2" y="2" width="1" height="1" fill="#e6b800"/><rect x="3" y="2" width="1" height="1" fill="#e6b800"/><rect x="4" y="2" width="1" height="1" fill="#c0392b"/><rect x="5" y="2" width="1" height="1" fill="#c0392b"/><rect x="0" y="3" width="1" height="1" fill="#c0392b"/><rect x="1" y="3" width="1" height="1" fill="#c0392b"/><rect x="2" y="3" width="1" height="1" fill="#e6b800"/><rect x="3" y="3" width="1" height="1" fill="#e6b800"/><rect x="4" y="3" width="1" height="1" fill="#c0392b"/><rect x="5" y="3" width="1" height="1" fill="#c0392b"/><rect x="1" y="4" width="1" height="1" fill="#c0392b"/><rect x="2" y="4" width="1" height="1" fill="#c0392b"/><rect x="3" y="4" width="1" height="1" fill="#c0392b"/><rect x="4" y="4" width="1" height="1" fill="#c0392b"/><rect x="2" y="5" width="1" height="1" fill="#c0392b"/><rect x="3" y="5" width="1" height="1" fill="#c0392b"/><rect x="3" y="6" width="1" height="1" fill="#3d7a52"/><rect x="2" y="7" width="1" height="1" fill="#3d7a52"/><rect x="3" y="7" width="1" height="1" fill="#3d7a52"/><rect x="2" y="8" width="1" height="1" fill="#3d7a52"/></svg></div>
-      <div class="waves"><svg class="px-waves" viewBox="0 0 150 17" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="34" height="4" fill="#2e5f8a"/><rect x="44" y="0" width="26" height="4" fill="#2e5f8a"/><rect x="80" y="0" width="24" height="4" fill="#2e5f8a"/><rect x="114" y="0" width="20" height="4" fill="#2e5f8a"/><rect x="0" y="6.5" width="22" height="4" fill="#2e5f8a"/><rect x="32" y="6.5" width="34" height="4" fill="#2e5f8a"/><rect x="76" y="6.5" width="30" height="4" fill="#2e5f8a"/><rect x="116" y="6.5" width="18" height="4" fill="#2e5f8a"/><rect x="0" y="13" width="30" height="4" fill="#3d7a52"/><rect x="40" y="13" width="20" height="4" fill="#3d7a52"/><rect x="70" y="13" width="34" height="4" fill="#3d7a52"/><rect x="114" y="13" width="20" height="4" fill="#3d7a52"/></svg></div>
-    </div>
+      <div class="weather">上海 · 晴 · 26°C</div>
 
-    <div class="right">
-      <div class="head">
-        <div class="head-left">
-          <div class="head-title">晨安</div>
-          <div class="head-sub">今日 · 宜慢慢来</div>
+      <div class="gua">
+        <div class="gua-title">山天大畜</div>
+        <div class="gua-shape">
+          <svg class="px-gua" viewBox="0 0 11 12.55" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0.0" width="11" height="1.3" fill="#1a1a1a"/><rect x="0" y="2.2" width="4.2" height="1.3" fill="#1a1a1a"/><rect x="6.8" y="2.2" width="4.2" height="1.3" fill="#1a1a1a"/><rect x="0" y="4.5" width="4.2" height="1.3" fill="#1a1a1a"/><rect x="6.8" y="4.5" width="4.2" height="1.3" fill="#1a1a1a"/><rect x="0" y="6.8" width="11" height="1.3" fill="#1a1a1a"/><rect x="0" y="9.0" width="11" height="1.3" fill="#1a1a1a"/><rect x="0" y="11.2" width="11" height="1.3" fill="#1a1a1a"/></svg>
+          <div class="gua-trigrams">艮上 乾下<br>第二十六卦</div>
         </div>
-        <div class="gua">
-          <svg class="px-gua" viewBox="0 0 12 13.9" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0.0" width="12" height="1.4" fill="#1a1a1a"/><rect x="0" y="2.5" width="4.5" height="1.4" fill="#1a1a1a"/><rect x="7.5" y="2.5" width="4.5" height="1.4" fill="#1a1a1a"/><rect x="0" y="5.0" width="4.5" height="1.4" fill="#1a1a1a"/><rect x="7.5" y="5.0" width="4.5" height="1.4" fill="#1a1a1a"/><rect x="0" y="7.5" width="12" height="1.4" fill="#1a1a1a"/><rect x="0" y="10.0" width="12" height="1.4" fill="#1a1a1a"/><rect x="0" y="12.5" width="12" height="1.4" fill="#1a1a1a"/></svg>
-          <div class="gua-name">大畜</div>
+        <div class="gua-text">
+          <span class="lbl">卦辞</span>　利贞。不家食，吉。利涉大川。<br>
+          <span class="lbl">象曰</span>　天在山中，大畜。<br>
+          <span class="lbl">藏</span>　　「陽氣內藏」——慢慢蓄，不必急。
         </div>
       </div>
 
-      <div class="letter">
-        <div class="letter-body">
-          九月走到三分之二了。<br>
-          今天不用急着成为谁，<br>
-          先好好喝一杯<em>冰咖啡</em>，<br>
-          让身体先开口说话。
-        </div>
-        <svg class="px-cup" viewBox="0 0 17 17" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><rect x="5" y="1" width="1" height="1" fill="#1a1a1a"/><rect x="9" y="1" width="1" height="1" fill="#1a1a1a"/><rect x="13" y="1" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="2" width="1" height="1" fill="#1a1a1a"/><rect x="8" y="2" width="1" height="1" fill="#1a1a1a"/><rect x="12" y="2" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="5" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="7" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="8" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="9" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="10" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="11" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="12" y="4" width="1" height="1" fill="#1a1a1a"/><rect x="1" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="5" width="1" height="1" fill="#c0392b"/><rect x="3" y="5" width="1" height="1" fill="#c0392b"/><rect x="4" y="5" width="1" height="1" fill="#c0392b"/><rect x="5" y="5" width="1" height="1" fill="#c0392b"/><rect x="6" y="5" width="1" height="1" fill="#c0392b"/><rect x="7" y="5" width="1" height="1" fill="#c0392b"/><rect x="8" y="5" width="1" height="1" fill="#c0392b"/><rect x="9" y="5" width="1" height="1" fill="#c0392b"/><rect x="10" y="5" width="1" height="1" fill="#c0392b"/><rect x="11" y="5" width="1" height="1" fill="#c0392b"/><rect x="12" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="13" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="14" y="5" width="1" height="1" fill="#1a1a1a"/><rect x="1" y="6" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="6" width="1" height="1" fill="#c0392b"/><rect x="3" y="6" width="1" height="1" fill="#c0392b"/><rect x="4" y="6" width="1" height="1" fill="#c0392b"/><rect x="5" y="6" width="1" height="1" fill="#c0392b"/><rect x="6" y="6" width="1" height="1" fill="#c0392b"/><rect x="7" y="6" width="1" height="1" fill="#c0392b"/><rect x="8" y="6" width="1" height="1" fill="#c0392b"/><rect x="9" y="6" width="1" height="1" fill="#c0392b"/><rect x="10" y="6" width="1" height="1" fill="#c0392b"/><rect x="11" y="6" width="1" height="1" fill="#c0392b"/><rect x="12" y="6" width="1" height="1" fill="#1a1a1a"/><rect x="14" y="6" width="1" height="1" fill="#1a1a1a"/><rect x="1" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="7" width="1" height="1" fill="#c0392b"/><rect x="3" y="7" width="1" height="1" fill="#c0392b"/><rect x="4" y="7" width="1" height="1" fill="#c0392b"/><rect x="5" y="7" width="1" height="1" fill="#c0392b"/><rect x="6" y="7" width="1" height="1" fill="#c0392b"/><rect x="7" y="7" width="1" height="1" fill="#c0392b"/><rect x="8" y="7" width="1" height="1" fill="#c0392b"/><rect x="9" y="7" width="1" height="1" fill="#c0392b"/><rect x="10" y="7" width="1" height="1" fill="#c0392b"/><rect x="11" y="7" width="1" height="1" fill="#c0392b"/><rect x="12" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="14" y="7" width="1" height="1" fill="#1a1a1a"/><rect x="1" y="8" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="8" width="1" height="1" fill="#c0392b"/><rect x="3" y="8" width="1" height="1" fill="#c0392b"/><rect x="4" y="8" width="1" height="1" fill="#c0392b"/><rect x="5" y="8" width="1" height="1" fill="#c0392b"/><rect x="6" y="8" width="1" height="1" fill="#c0392b"/><rect x="7" y="8" width="1" height="1" fill="#c0392b"/><rect x="8" y="8" width="1" height="1" fill="#c0392b"/><rect x="9" y="8" width="1" height="1" fill="#c0392b"/><rect x="10" y="8" width="1" height="1" fill="#c0392b"/><rect x="11" y="8" width="1" height="1" fill="#c0392b"/><rect x="12" y="8" width="1" height="1" fill="#1a1a1a"/><rect x="13" y="8" width="1" height="1" fill="#1a1a1a"/><rect x="14" y="8" width="1" height="1" fill="#1a1a1a"/><rect x="1" y="9" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="9" width="1" height="1" fill="#c0392b"/><rect x="3" y="9" width="1" height="1" fill="#c0392b"/><rect x="4" y="9" width="1" height="1" fill="#c0392b"/><rect x="5" y="9" width="1" height="1" fill="#c0392b"/><rect x="6" y="9" width="1" height="1" fill="#c0392b"/><rect x="7" y="9" width="1" height="1" fill="#c0392b"/><rect x="8" y="9" width="1" height="1" fill="#c0392b"/><rect x="9" y="9" width="1" height="1" fill="#c0392b"/><rect x="10" y="9" width="1" height="1" fill="#c0392b"/><rect x="11" y="9" width="1" height="1" fill="#c0392b"/><rect x="12" y="9" width="1" height="1" fill="#1a1a1a"/><rect x="1" y="10" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="10" width="1" height="1" fill="#c0392b"/><rect x="3" y="10" width="1" height="1" fill="#c0392b"/><rect x="4" y="10" width="1" height="1" fill="#c0392b"/><rect x="5" y="10" width="1" height="1" fill="#c0392b"/><rect x="6" y="10" width="1" height="1" fill="#c0392b"/><rect x="7" y="10" width="1" height="1" fill="#c0392b"/><rect x="8" y="10" width="1" height="1" fill="#c0392b"/><rect x="9" y="10" width="1" height="1" fill="#c0392b"/><rect x="10" y="10" width="1" height="1" fill="#c0392b"/><rect x="11" y="10" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="11" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="11" width="1" height="1" fill="#c0392b"/><rect x="4" y="11" width="1" height="1" fill="#c0392b"/><rect x="5" y="11" width="1" height="1" fill="#c0392b"/><rect x="6" y="11" width="1" height="1" fill="#c0392b"/><rect x="7" y="11" width="1" height="1" fill="#c0392b"/><rect x="8" y="11" width="1" height="1" fill="#c0392b"/><rect x="9" y="11" width="1" height="1" fill="#c0392b"/><rect x="10" y="11" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="12" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="12" width="1" height="1" fill="#1a1a1a"/><rect x="5" y="12" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="12" width="1" height="1" fill="#1a1a1a"/><rect x="7" y="12" width="1" height="1" fill="#1a1a1a"/><rect x="8" y="12" width="1" height="1" fill="#1a1a1a"/><rect x="9" y="12" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="5" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="7" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="8" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="9" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="10" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="11" y="13" width="1" height="1" fill="#1a1a1a"/><rect x="1" y="14" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="3" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="4" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="5" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="6" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="7" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="8" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="9" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="10" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="11" y="14" width="1" height="1" fill="#2e5f8a"/><rect x="12" y="14" width="1" height="1" fill="#1a1a1a"/><rect x="2" y="15" width="1" height="1" fill="#1a1a1a"/><rect x="3" y="15" width="1" height="1" fill="#1a1a1a"/><rect x="4" y="15" width="1" height="1" fill="#1a1a1a"/><rect x="5" y="15" width="1" height="1" fill="#1a1a1a"/><rect x="6" y="15" width="1" height="1" fill="#1a1a1a"/><rect x="7" y="15" width="1" height="1" fill="#1a1a1a"/><rect x="8" y="15" width="1" height="1" fill="#1a1a1a"/><rect x="9" y="15" width="1" height="1" fill="#1a1a1a"/><rect x="10" y="15" width="1" height="1" fill="#1a1a1a"/><rect x="11" y="15" width="1" height="1" fill="#1a1a1a"/></svg>
+      <div class="pic"><img src="img/gua.png" alt="山天大畜"></div>
+    </div>
+
+    <div class="right">
+      <div class="head-title">晨安</div>
+      <div class="head-sub">今日 · 宜慢慢来</div>
+
+      <div class="quote">
+        「真实的东西，本来就已经在那里了。<br>
+        承认它，不会让它变得更糟；<br>
+        不面对它，它也不会消失。<br>
+        正因为它真实，它才是可以与你互动的东西。」
+        <div class="quote-src">—— 简德林《聚焦》</div>
       </div>
 
       <div class="practice">
@@ -115,6 +122,7 @@
         <div class="practice-text">喝咖啡前，花十秒问问身体：「今天，你想被怎样对待？」不用回答，听一听就好。</div>
       </div>
     </div>
+
   </div>
 </body>
 </html>
