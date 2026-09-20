@@ -2,10 +2,10 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=800, height=480, initial-scale=1">
+<meta name="viewport" content="width=800, initial-scale=1">
 <title>晨间窗 · 给无名</title>
 <style>
-  /* reTerminal E1002: 800x480, E Ink Spectra 6 — 只用六色墨水 */
+  /* reTerminal E1002: 800x480, E Ink Spectra 6 —— 只用六个纯墨色，禁用渐变与中间色 */
   :root {
     --ink-black: #1a1a1a;
     --ink-white: #f7f5ef;
@@ -21,104 +21,161 @@
     background: var(--ink-white);
     color: var(--ink-black);
     font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
-    font-weight: 600;
+    font-weight: 700;
   }
   .frame {
     width: 800px; height: 480px;
-    padding: 36px 44px;
+    border: 6px solid var(--ink-black);
     display: flex;
-    flex-direction: column;
     position: relative;
   }
-  /* 顶部：日期与问候 */
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    border-bottom: 3px solid var(--ink-black);
-    padding-bottom: 14px;
-  }
-  .date {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 2px;
-  }
-  .date .weekday { color: var(--ink-blue); }
-  .greeting {
-    font-size: 20px;
-    color: var(--ink-green);
-    letter-spacing: 4px;
-  }
-  /* 中部：信 */
-  .letter {
-    flex: 1;
-    padding: 28px 8px 0 8px;
+
+  /* ===== 左栏：日期与太阳 ===== */
+  .left {
+    width: 240px;
+    border-right: 4px solid var(--ink-black);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    padding-top: 42px;
+  }
+  .sun {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: var(--ink-yellow);
+    border: 5px solid var(--ink-black);
+    margin-bottom: 34px;
+  }
+  .month-day {
+    font-size: 44px;
+    letter-spacing: 2px;
+  }
+  .weekday {
+    font-size: 24px;
+    color: var(--ink-blue);
+    margin-top: 10px;
+    letter-spacing: 6px;
+  }
+  .weather {
+    margin-top: 34px;
+    font-size: 20px;
+    color: var(--ink-green);
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* ===== 右栏：信与练习 ===== */
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .letter {
+    flex: 1;
+    padding: 40px 40px 24px 40px;
   }
   .letter-title {
     font-size: 22px;
     color: var(--ink-red);
-    margin-bottom: 18px;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
   }
   .letter-body {
     font-size: 26px;
-    font-weight: 700;
-    line-height: 1.9;
+    line-height: 1.85;
     letter-spacing: 1px;
   }
   .letter-body em {
     font-style: normal;
     color: var(--ink-blue);
   }
-  /* 底部 */
-  .footer {
+
+  /* 底部：聚焦练习条 */
+  .practice {
+    border-top: 4px dashed var(--ink-black);
+    margin: 0 28px;
+    padding: 16px 12px 14px 12px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-top: 2px dashed var(--ink-black);
-    padding-top: 14px;
   }
+  .practice-tag {
+    background: var(--ink-green);
+    color: var(--ink-white);
+    font-size: 18px;
+    letter-spacing: 3px;
+    padding: 6px 14px;
+    margin-right: 18px;
+    white-space: nowrap;
+  }
+  .practice-text {
+    font-size: 21px;
+    line-height: 1.6;
+  }
+
+  /* 落款 */
   .signature {
+    position: absolute;
+    right: 40px;
+    top: 46px;
     font-size: 20px;
+    color: var(--ink-black);
     letter-spacing: 2px;
   }
-  .weather {
-    font-size: 20px;
-    color: var(--ink-blue);
-    letter-spacing: 1px;
-  }
-  /* 角落装饰：一枚小小的太阳 */
-  .sun {
+
+  /* 海浪：三条蓝色波浪 */
+  .waves {
     position: absolute;
-    top: 30px; right: 44px;
-    width: 0; height: 0;
+    left: 0; bottom: 0;
+    width: 240px; height: 60px;
   }
+  .wave {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: var(--ink-blue);
+    border-radius: 5px;
+  }
+  .wave:nth-child(1) { bottom: 12px; width: 78%; }
+  .wave:nth-child(2) { bottom: 30px; width: 92%; left: 12px; }
+  .wave:nth-child(3) { bottom: 48px; width: 64%; left: 36px; }
 </style>
 </head>
 <body>
   <div class="frame">
-    <div class="topbar">
-      <div class="date">2026年9月20日 <span class="weekday">星期日</span></div>
-      <div class="greeting">晨安</div>
-    </div>
 
-    <div class="letter">
-      <div class="letter-title">✉ 今日的信</div>
-      <div class="letter-body">
-        窗外的九月已经走到三分之二了。<br>
-        今天不用急着成为谁，<br>
-        先好好喝一杯你的<em>冰咖啡</em>，<br>
-        让身体先开口说话。
+    <div class="left">
+      <div class="sun"></div>
+      <div class="month-day">9月20日</div>
+      <div class="weekday">星期日</div>
+      <div class="weather">上海 · 晴<br>26°C · 微风</div>
+      <div class="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
       </div>
     </div>
 
-    <div class="footer">
+    <div class="right">
       <div class="signature">—— 夜玄</div>
-      <div class="weather">上海 · 晴 · 26°C</div>
+      <div class="letter">
+        <div class="letter-title">✉ 晨安，无名</div>
+        <div class="letter-body">
+          九月走到三分之二了。<br>
+          今天不用急着成为谁，<br>
+          先好好喝一杯<em>冰咖啡</em>，<br>
+          让身体先开口说话。
+        </div>
+      </div>
+      <div class="practice">
+        <div class="practice-tag">聚焦</div>
+        <div class="practice-text">
+          喝咖啡前，花十秒问问身体：「今天，你想被怎样对待？」——不用回答，听一听就好。
+        </div>
+      </div>
     </div>
+
   </div>
 </body>
 </html>
