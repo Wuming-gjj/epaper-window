@@ -2,97 +2,85 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>山天大畜 · 解卦页</title>
 <style>
+  /* reTerminal E1002 · E Ink Spectra 6 · 横版解卦页
+     六色：黑#1a1a1a 白#f7f5ef 红#c0392b 黄#e6b800 蓝#2e5f8a 绿#3d7a52
+     灰/阴影/细纹会抖动，全部换成纯色；次要文字用蓝 */
   :root{
-    --paper:#f8f6e8;
-    --ink:#343434;
-    --ink-deep:#232323;
-    --ink-soft:#6b675c;
-    --seal:#c00000;
-    --hairline:rgba(52,52,52,.30);
+    --u: min(1vw, 1.6667vh);
+    --paper:#f7f5ef; --ink:#1a1a1a; --seal:#c0392b; --soft:#2e5f8a;
     --kai:"Kaiti SC","STKaiti","KaiTi","AR PL KaitiM GB","TW-Kai","Noto Serif CJK SC",serif;
-    --song:"Songti SC","STSong","STZhongsong","SimSun","Noto Serif CJK SC","Noto Serif SC",serif;
+    --song:"Noto Serif SC","Songti SC","STSong","SimSun","Noto Serif CJK SC",serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-  body{
-    background:#e6e2d6;
-    font-family:var(--song);
-    color:var(--ink);
-    padding:32px 16px;
+  html,body{width:100%;height:100%;overflow:hidden;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--song);font-weight:600;}
+
+  .sheet{position:relative;width:100%;height:100%;}
+  .border-o{position:absolute;inset:calc(var(--u)*0.8);border:calc(var(--u)*0.45) solid var(--ink);}
+  .border-i{position:absolute;inset:calc(var(--u)*1.6);border:calc(var(--u)*0.18) solid var(--ink);}
+
+  .inner{
+    position:absolute;inset:calc(var(--u)*2.6) calc(var(--u)*3.0);
+    display:flex;flex-direction:column;
   }
 
-  /* ---------- A6 单页 ---------- */
-  .sheet{
-    position:relative;
-    width:105mm;height:148mm;
-    margin:0 auto;
-    background:var(--paper);
-    box-shadow:0 2px 6px rgba(0,0,0,.18),0 14px 34px rgba(0,0,0,.14);
-    overflow:hidden;
-  }
-  .sheet::before{
-    content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  /* 规整的双线框 */
-  .border-o{position:absolute;inset:4mm 4mm 4mm 11mm;border:.45mm solid var(--ink);pointer-events:none;}
-  .border-i{position:absolute;inset:5.4mm 5.4mm 5.4mm 12.4mm;border:1px solid var(--hairline);pointer-events:none;}
-
-  .inner{position:absolute;inset:8.5mm 9mm 8.5mm 16mm;display:flex;flex-direction:column;}
-
-  /* ---------- 上部：卦象 + 题名 ---------- */
-  .head{display:flex;gap:5mm;align-items:flex-start;}
-  .hexbox{flex:none;padding-top:1mm;}
-  .titlebox{flex:1;padding-top:1mm;}
-  .kicker{font-size:7pt;letter-spacing:.42em;color:var(--ink-soft);}
+  /* ---- 上部：卦象 + 题名 ---- */
+  .head{display:flex;gap:calc(var(--u)*2.6);align-items:flex-start;}
+  .hexbox{flex:none;width:calc(var(--u)*23);}
+  .hexbox svg{width:100%;height:auto;display:block;}
+  .titlebox{flex:1;}
+  .kicker{font-size:calc(var(--u)*1.7);letter-spacing:calc(var(--u)*0.7);color:var(--soft);}
   h1{
-    font-family:var(--kai);font-weight:normal;white-space:nowrap;
-    font-size:20pt;letter-spacing:.08em;color:var(--ink-deep);
-    margin:1.4mm 0 1.2mm;display:flex;align-items:center;gap:2.6mm;
+    font-family:var(--kai);font-weight:700;white-space:nowrap;
+    font-size:calc(var(--u)*4.6);letter-spacing:calc(var(--u)*0.4);
+    margin:calc(var(--u)*0.7) 0 calc(var(--u)*0.5);
+    display:flex;align-items:center;gap:calc(var(--u)*1.6);
   }
   .seal{
-    flex:none;width:8.6mm;height:8.6mm;background:var(--seal);color:var(--paper);
-    font-family:var(--kai);font-size:8.5pt;line-height:1.05;
+    flex:none;width:calc(var(--u)*5.6);height:calc(var(--u)*5.6);
+    background:var(--seal);color:var(--paper);
+    font-family:var(--kai);font-size:calc(var(--u)*2.1);line-height:1.1;
     display:flex;align-items:center;justify-content:center;text-align:center;
-    writing-mode:vertical-rl;border-radius:1mm;transform:rotate(-3deg) translateY(.6mm);
+    writing-mode:vertical-rl;transform:rotate(-3deg);
   }
-  .tri{font-size:7.6pt;letter-spacing:.18em;color:var(--ink-soft);}
-  .gua-yi{margin-top:1.6mm;font-size:7.6pt;line-height:1.6;color:var(--ink);}
-  .gua-yi b{font-family:var(--kai);font-weight:normal;color:var(--seal);}
+  .tri{font-size:calc(var(--u)*1.8);letter-spacing:calc(var(--u)*0.35);color:var(--soft);}
+  .gua-yi{margin-top:calc(var(--u)*0.7);font-size:calc(var(--u)*1.7);line-height:1.55;}
+  .gua-yi b{font-family:var(--kai);color:var(--seal);}
 
-  /* ---------- 卦辞 ---------- */
-  .label{
-    display:flex;align-items:center;gap:2.4mm;
-    font-size:7pt;letter-spacing:.4em;color:var(--ink-soft);
-    margin:2.6mm 0 1.6mm;
-  }
-  .label::after{content:"";flex:1;height:1px;background:var(--hairline);}
-  .label b{font-family:var(--kai);font-weight:normal;font-size:8.6pt;color:var(--ink-deep);letter-spacing:.3em;}
+  /* ---- 卦辞 ---- */
   .guaci{
-    font-family:var(--kai);font-size:9.6pt;line-height:1.8;color:var(--ink-deep);
-    padding-left:3mm;border-left:.7mm solid var(--ink-deep);
+    margin-top:calc(var(--u)*1.0);
+    font-family:var(--kai);font-size:calc(var(--u)*2.0);line-height:1.5;
+    padding-left:calc(var(--u)*1.4);border-left:calc(var(--u)*0.55) solid var(--ink);
   }
-  .guaci small{display:block;font-family:var(--song);font-size:7pt;color:var(--ink-soft);margin-top:.8mm;letter-spacing:.06em;}
+  .guaci small{
+    display:block;font-family:var(--song);font-size:calc(var(--u)*1.6);
+    color:var(--soft);margin-top:calc(var(--u)*0.4);letter-spacing:calc(var(--u)*0.1);
+  }
 
-  /* ---------- 解读 ---------- */
+  /* ---- 解读两栏 ---- */
+  .readings{flex:1;min-height:0;display:flex;gap:calc(var(--u)*2.6);margin-top:calc(var(--u)*1.1);}
+  .col{flex:1;display:flex;flex-direction:column;}
+  .label{
+    display:flex;align-items:center;gap:calc(var(--u)*1.2);
+    margin-bottom:calc(var(--u)*0.8);
+  }
+  .label b{font-family:var(--kai);font-size:calc(var(--u)*2.0);letter-spacing:calc(var(--u)*0.5);white-space:nowrap;}
+  .label::after{content:"";flex:1;height:calc(var(--u)*0.18);background:var(--ink);}
   .reading p{
-    font-size:8.1pt;line-height:1.76;text-align:justify;
+    font-size:calc(var(--u)*1.72);line-height:1.6;text-align:justify;
   }
   .reading .lead{font-family:var(--kai);color:var(--seal);}
 
+  /* ---- 页脚 ---- */
   .foot{
-    margin-top:auto;padding-top:2mm;border-top:1px solid var(--hairline);
+    margin-top:calc(var(--u)*0.9);padding-top:calc(var(--u)*0.7);
+    border-top:calc(var(--u)*0.18) solid var(--ink);
     display:flex;justify-content:space-between;
-    font-size:6.8pt;letter-spacing:.26em;color:var(--ink-soft);
-  }
-
-  @page{size:A6 portrait;margin:0;}
-  @media print{
-    body{background:none;padding:0;}
-    .sheet{box-shadow:none;}
+    font-size:calc(var(--u)*1.6);letter-spacing:calc(var(--u)*0.45);color:var(--soft);
   }
 </style>
 </head>
@@ -106,24 +94,24 @@
     <!-- 卦象与题名 -->
     <div class="head">
       <div class="hexbox">
-        <svg width="150" height="128" viewBox="0 0 300 178" style="width:35mm;height:auto;display:block;" role="img" aria-label="山天大畜卦象">
+        <svg viewBox="0 0 300 178" role="img" aria-label="山天大畜卦象">
           <!-- 上卦 艮 ☶ -->
-          <rect x="10" y="10" width="180" height="15" rx="2" fill="#2b2b2b"/>
-          <rect x="10" y="37" width="82" height="15" rx="2" fill="#2b2b2b"/>
-          <rect x="108" y="37" width="82" height="15" rx="2" fill="#2b2b2b"/>
-          <rect x="10" y="64" width="82" height="15" rx="2" fill="#2b2b2b"/>
-          <rect x="108" y="64" width="82" height="15" rx="2" fill="#2b2b2b"/>
+          <rect x="10" y="10" width="180" height="15" fill="#1a1a1a"/>
+          <rect x="10" y="37" width="82" height="15" fill="#1a1a1a"/>
+          <rect x="108" y="37" width="82" height="15" fill="#1a1a1a"/>
+          <rect x="10" y="64" width="82" height="15" fill="#1a1a1a"/>
+          <rect x="108" y="64" width="82" height="15" fill="#1a1a1a"/>
           <!-- 下卦 乾 ☰ -->
-          <rect x="10" y="99" width="180" height="15" rx="2" fill="#2b2b2b"/>
-          <rect x="10" y="126" width="180" height="15" rx="2" fill="#2b2b2b"/>
-          <rect x="10" y="153" width="180" height="15" rx="2" fill="#2b2b2b"/>
+          <rect x="10" y="99" width="180" height="15" fill="#1a1a1a"/>
+          <rect x="10" y="126" width="180" height="15" fill="#1a1a1a"/>
+          <rect x="10" y="153" width="180" height="15" fill="#1a1a1a"/>
           <!-- 括线与卦名 -->
           <path d="M 205,10 Q 216,12 216,32 Q 216,42.5 223,44.5 Q 216,46.5 216,57 Q 216,77 205,79"
-                fill="none" stroke="#343434" stroke-width="2.4" stroke-linecap="round"/>
+                fill="none" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
           <path d="M 205,99 Q 216,101 216,121 Q 216,131.5 223,133.5 Q 216,135.5 216,146 Q 216,166 205,168"
-                fill="none" stroke="#343434" stroke-width="2.4" stroke-linecap="round"/>
-          <text x="236" y="51" font-family="Kaiti SC,STKaiti,KaiTi,serif" font-size="21" fill="#343434">艮·山</text>
-          <text x="236" y="140" font-family="Kaiti SC,STKaiti,KaiTi,serif" font-size="21" fill="#343434">乾·天</text>
+                fill="none" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+          <text x="236" y="51" font-family="Kaiti SC,STKaiti,KaiTi,serif" font-size="24" font-weight="700" fill="#2e5f8a">艮·山</text>
+          <text x="236" y="140" font-family="Kaiti SC,STKaiti,KaiTi,serif" font-size="24" font-weight="700" fill="#2e5f8a">乾·天</text>
         </svg>
       </div>
       <div class="titlebox">
@@ -135,22 +123,25 @@
     </div>
 
     <!-- 卦辞 -->
-    <div class="label"><b>卦 辞</b></div>
     <div class="guaci">
       大畜，利贞。不家食，吉。利涉大川。
       <small>象曰：天在山中，大畜。君子以多识前言往行，以畜其德。</small>
     </div>
 
-    <!-- 解读一：身体 -->
-    <div class="label"><b>解读 · 身体</b></div>
-    <div class="reading">
-      <p><span class="lead">外静内动，阳气内藏。</span>艮止于外，乾健于内，正是最能听见身体的状态。近年的体重增加可看作身体的储备与保护，蓄有其意义，蓄到程度自会转化。依身体感受饮食，即象传所谓“畜其德”：把身体历年的讯号逐一辨认记下，形成自己的体感经验。六爻亦指明节奏：初九“利已”，身体说停就停；六五“豮豕之牙”，睡眠、情绪、节奏是根，体重与食欲只是表。</p>
-    </div>
-
-    <!-- 解读二：不家食 -->
-    <div class="label"><b>解读 · 不家食</b></div>
-    <div class="reading">
-      <p><span class="lead">不家食，吉。</span>本义指贤者食禄于外，此处是说积蓄的能量宜流入更大的循环，久闭于内则空转。真实的连接，无论线上线下，有给予也有回流，便是“食于外”；勉强的应酬，人在场而神耗损，仍属家食。艮为山，短途的山林之行是可行的第一步。初九不动，上九“何天之衢”乃通：先蓄后通，水满自溢。</p>
+    <!-- 解读两栏 -->
+    <div class="readings">
+      <div class="col">
+        <div class="label"><b>解读 · 身体</b></div>
+        <div class="reading">
+          <p><span class="lead">外静内动，阳气内藏。</span>艮止于外，乾健于内，正是最能听见身体的状态。近年的体重增加可看作身体的储备与保护，蓄有其意义，蓄到程度自会转化。依身体感受饮食，即象传所谓“畜其德”：把身体历年的讯号逐一辨认记下，形成自己的体感经验。六爻亦指明节奏：初九“利已”，身体说停就停；六五“豮豕之牙”，睡眠、情绪、节奏是根，体重与食欲只是表。</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="label"><b>解读 · 不家食</b></div>
+        <div class="reading">
+          <p><span class="lead">不家食，吉。</span>本义指贤者食禄于外，此处是说积蓄的能量宜流入更大的循环，久闭于内则空转。真实的连接，无论线上线下，有给予也有回流，便是“食于外”；勉强的应酬，人在场而神耗损，仍属家食。艮为山，短途的山林之行是可行的第一步。初九不动，上九“何天之衢”乃通：先蓄后通，水满自溢。</p>
+        </div>
+      </div>
     </div>
 
     <div class="foot">
